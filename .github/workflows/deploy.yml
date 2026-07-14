@@ -28,8 +28,13 @@ jobs:
         run: | #여러줄을 작성하고 싶으면 '|' 입력 후 작성
           echo "Good"
           echo "Perfect"
-
+      # GITHUB_SHA : 현재 올라가는 커밋 ID
       - name: Github Actions 자체에 저장되어 있는 변수 사용하기
         run : |
           echo $GITHUB_SHA
           echo $GITHUB_REPOSITORY
+
+      - name: 아무한테 노출이 되면 안되는 값
+        run : |
+          echo ${{ secrets.MY_NAME}}
+          echo ${{ secrets.MY_HOBBY}}
