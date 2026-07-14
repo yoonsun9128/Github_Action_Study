@@ -1,0 +1,25 @@
+name: Deploy To EC2(개인 프로젝트 연습용)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. EC2 접속(SSH 원격 접속)
+      #라이브러리 작성하는곳(github markets에서 조회 가능)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST}} #원격 ip 주소
+          username: ${{ secrets.EC2_USERNAME}} #서버르 접속할때 사용자 name이 있다
+          key: ${{ secrets.EC2_PRIVATE_KEY}} #서버 접속할 키값
+          script_stop: true
+          script: |
+            cd /home/ubuntu/file-location
+            git pull origin main
+            ./gradlew clean build
+            sudo fuser -k -n tcp 8080 || true #기존 실행 중인 서비스를 끄는것
+            nohup java -jar build/libs/*SNAPSHOT.jar > ./output.log 2>&1 & #표준 출력(리눅스 명령어)
