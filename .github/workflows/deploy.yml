@@ -1,16 +1,25 @@
-#여기부터는 파일명은 각자 알아서
-
+#여기부터는 파일명은 각자 알아서 :: Workflow
 name : Github Actions 실행시켜보기
 
+# 어떤 포인트에서 깃헙엑션을 발생하게 할껀지
+# Event: 실행되는 시점을 설정
+# main이라는 브랜치에 push 될때 아래 Workflow를 실행
 on:
   push:
     branches:
       - main
 
+# 하나의 Workflow는 1개 이상의 job으로 구성된다.!!
+# 여러 job은 기본적으로 병렬적으로 수행된다.
 jobs:
+	# job을 식별하기 위한 ID
   My-Deploy-Job:
+	# 무슨 운영체제인지를 체크하는 구간
+	# ubuntu 환경 / 가장 최신 버전(latest)
     runs-on: ubuntu-latest
 
+    # Step : 특정 작업을 수행하는 가장 작은 단위
+		# 1개의 job은 여러 step들로 구성되어 있다.
     steps:
       - name: Hello World 찍기
         run: echo "Hello World"
