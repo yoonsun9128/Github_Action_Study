@@ -28,3 +28,8 @@ jobs:
         run: | #여러줄을 작성하고 싶으면 '|' 입력 후 작성
           echo "Good"
           echo "Perfect"
+
+      - name: Github Actions 자체에 저장되어 있는 변수 사용하기
+        run : |
+        echo $GITHUB_SHA
+        echo $GITHUB_REPOSITORY
